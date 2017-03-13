@@ -1,0 +1,132 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <!-- to get rid of favicon request in console -->
+  <link rel="shortcut icon" href="">
+
+  <!-- P5 STUFF -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+ 
+
+  <!-- SOCKET STUFF -->
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+    
+    /// SOCKET STUFF
+    var socket = io.connect();
+    
+    socket.on('connect', function() {
+      console.log("Connected");
+    });
+
+  // p5
+
+  
+  b1 = 'green';
+  b2 = 'blue';
+  b3 = 'purple';
+  ax= 0;
+  x = 0;
+  vx = 0;
+  axb= 0;
+  xb = 0;
+  vxb = 0;
+  axc= 0;
+  xc = 0;
+  vxc = 0;
+  Multi = 0.007;  
+  
+  
+
+
+
+    function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  
+
+}
+
+
+
+    function draw(){
+      background(100);
+     
+    fill('green');
+     ellipse(x, windowHeight/6, 100, 100);
+     fill('blue');
+     ellipse(xb, windowHeight/2., 100);
+     fill('purple');
+     ellipse(xc, windowHeight/1.2, 100, 100);
+    }
+
+
+
+socket.on('accel', function(data){
+  
+  console.log(data);
+
+  
+  ax = Math.abs(data.accx) ;
+
+  vx = vx + ax/90; 
+  x = x + vx * Multi;
+
+})
+
+socket.on('accelb', function(data){
+  
+  // console.log('works');
+
+  axb = Math.abs(data.accxb) ;
+
+  vxb = vxb + axb/90; 
+  xb = xb + vxb * Multi;
+
+})
+
+socket.on('accelc', function(data){
+  
+  console.log('works3');
+
+  axc = Math.abs(data.accxc) ;
+
+  vxc = vxc + axc/90; 
+  xc = xc + vxc * Multi;
+
+})
+
+
+
+  </script>
+
+  <style> 
+
+  body {padding: 0; margin: 0;}
+
+  
+
+
+  </style>
+</head>
+
+<body>
+
+<!-- <div id="container">
+    <h2> alpha:<span id= 'alpha'>0</span></h2>
+    <h2> beta:<span id= 'beta'>0</span></h2>
+    <h2> gamma:<span id= 'gamma'>0</span></h2>
+    <br>
+    <h2> x:<span id= 'xmov'>0</span></h2>
+    <h2> y:<span id= 'ymov'>0</span></h2>
+    <h2> z:<span id= 'zmov'>0</span></h2>
+
+    </div> -->
+
+</body>
+</html>
+
+
+
